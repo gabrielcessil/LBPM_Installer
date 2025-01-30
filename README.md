@@ -2,7 +2,8 @@
 
 LBPM_Installer is a simple script to install LBPM (Lattice Boltzmann for Porous Media) in Linux Environment
 
-The original code: https://github.com/OPM/LBPM
+The LBPM original source code: https://github.com/OPM/LBPM
+
 The installation documents: https://lbpm-sim.org/
 
 
