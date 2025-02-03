@@ -27,7 +27,7 @@ echo $MPI_DIR
 echo $LBPM_ZLIB_DIR
 echo $LBPM_HDF5_DIR
 echo $LBPM_SILO_DIR
-echo -e "\n\n Please, make sure the above paths are properly in the installation folder. Then, press any key to continue: ..."
+echo -e "\n\nSome previous actions may have interfered with the previous steps. Please make sure the paths above are correctly set in the installation folder. Then, press any key to continue..."
 read -p ""
 tar -xvzf openmpi-3.1.6.tar.gz
 cd openmpi-3.1.6
