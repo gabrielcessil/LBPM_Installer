@@ -10,7 +10,7 @@ The original installation documents: https://lbpm-sim.org/
 
 ## To install LPBM:
 
-0) The LBPM code currently have a nativa error, to correct it: 
+0) The LBPM code currently have a native error, to correct it: 
  - Please, write {#include \"IO/silo.h\"} on LBPM_source/IO/Reader.cpp headers;
  - Please, write {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers.
    
