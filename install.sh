@@ -3,16 +3,6 @@
 echo -e "Press any key to start..."
 read -p ""
 
-
-# INCLUDE {#include "IO/silo.h"} on LBPM_source/IO/Reader.cpp headers
-echo -e "\n\n\n\n\n Please, write {#include \"IO/silo.h\"} on LBPM_source/IO/Reader.cpp headers.\n\n Then press any key to continue: ..."
-read -p ""
-
-# INCLUDE {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers
-echo -e "\n\n\n\n\n Please, write {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers.\n\n Then press any key to continue: ..."
-read -p ""
-
-
 sudo apt install gfortran
 
 mkdir mpi zlib hdf5 silo
@@ -100,7 +90,17 @@ mv LBPM/* LBPM/.* .
 rmdir LBPM
 cd ..
 
+# INCLUDE {#include "IO/silo.h"} on LBPM_source/IO/Reader.cpp headers
+echo -e "\n\n\n\n\n Please, write {#include \"IO/silo.h\"} on LBPM_source/IO/Reader.cpp headers.\n\n Then press any key to continue: ..."
+read -p ""
+
+# INCLUDE {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers
+echo -e "\n\n\n\n\n Please, write {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers.\n\n Then press any key to continue: ..."
+read -p ""
+
+
 cd $LBPM_DIR
+
 
 
 cmake                                           \
