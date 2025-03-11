@@ -9,12 +9,8 @@ The original installation documents: https://lbpm-sim.org/
 
 
 ## To install LPBM:
-
-0) The LBPM code currently have a native error, to correct it: 
- - Please, write {#include \"IO/silo.h\"} on LBPM_source/IO/Reader.cpp headers;
- - Please, write {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers.
    
-2) Open terminal and navigate until this folder location
+1) Open terminal and navigate until this folder location
    
 3) Run this command: chmod +x install.sh
    
