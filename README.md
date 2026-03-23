@@ -10,7 +10,7 @@ The original installation documents: https://lbpm-sim.org/
 
 ## To install LPBM:
 
-0) If you downloaded this content as a zip: unzip it
+0) Clone this content. Or downloaded this content as a zip from github UI and unzip it.
    
 1) Open terminal and navigate until this folder location
    
