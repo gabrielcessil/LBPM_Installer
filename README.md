@@ -11,6 +11,7 @@ The original installation documents: https://lbpm-sim.org/
 ## To install LPBM:
    
 1) Open terminal and navigate until this folder location
+1.2) If you downloaded this content as a zip: unzip it.
    
 3) Run this command: chmod +x install.sh
    
