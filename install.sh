@@ -4,6 +4,7 @@ echo -e "Press any key to start..."
 read -p ""
 
 DEFAULT_REPO="https://github.com/poro-labcc/lbpm/"
+DEFAULT_BRANCH="master"
 
 sudo apt install gfortran
 
@@ -93,7 +94,14 @@ read -p "[Press Enter for Default: $DEFAULT_REPO]: " USER_REPO
 USER_REPO=$(echo "$USER_REPO" | xargs | tr -d '"')
 REPO_TO_CLONE=${USER_REPO:-$DEFAULT_REPO}
 echo -e "\nCloning from: $REPO_TO_CLONE ...\n"
-git clone -b master "$REPO_TO_CLONE" .
+
+
+read -p "Enter the branch name [Press Enter for Default: $DEFAULT_BRANCH]: " USER_BRANCH
+BRANCH_TO_CLONE=${USER_BRANCH:-$DEFAULT_BRANCH}
+
+echo -e "Cloning branch: $BRANCH_TO_CLONE de $REPO_TO_CLONE ...\n"
+git clone -b "$BRANCH_TO_CLONE" --single-branch "$REPO_TO_CLONE" .
+
 rmdir LBPM
 cd ..
 
@@ -133,5 +141,5 @@ make install
 
 ctest
 
-echo -e "\n\nFinished. Some tests may fail, but it should still be usable. \n\n"
+echo -e "\n\nFinished. Some tests may fail due the development stage, but it should still work for general porpouse applications. \n\n"
 
