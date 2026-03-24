@@ -3,6 +3,8 @@
 echo -e "Press any key to start..."
 read -p ""
 
+DEFAULT_REPO="https://github.com/poro-labcc/lbpm/"
+
 sudo apt install gfortran
 
 mkdir mpi zlib hdf5 silo
@@ -85,8 +87,13 @@ read -p ""
 
 
 cd $LBPM_SOURCE
-git clone -b master https://github.com/OPM/LBPM
-mv LBPM/* LBPM/.* .
+
+echo -e "\n\nEnter the GitHub repository link"
+read -p "[Press Enter for Default: $DEFAULT_REPO]: " USER_REPO
+USER_REPO=$(echo "$USER_REPO" | xargs | tr -d '"')
+REPO_TO_CLONE=${USER_REPO:-$DEFAULT_REPO}
+echo -e "\nCloning from: $REPO_TO_CLONE ...\n"
+git clone -b master "$REPO_TO_CLONE" .
 rmdir LBPM
 cd ..
 
