@@ -34,7 +34,7 @@ Before running the installer, ensure the following dependencies are available on
 
 2. **Navigate to the folder**
    ```bash
-   cd LBPM_Installer
+   cd LBPM_Installer-main
    ```
 
 3. **Make the script executable**
