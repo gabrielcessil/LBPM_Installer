@@ -17,18 +17,40 @@ Before running the installer, ensure the following dependencies are available on
 
 ## Installation:
 
-0) Clone this content. Or downloaded this content as a zip from github UI and extract it.
-   
-1) Open terminal and navigate until this folder location
-   
-3) Run this command: chmod +x install.sh
-   
-4) Then, run this command: ./install.sh
-   
-5) On some points, the linux bash will wait for entries to continue. Read and follow to avoid native errors. The bash will continue with any pressed key, caution on CTRL+C that may be considered as input (use mouse click).
+## Installation
 
+**Follow on-screen instructions**
+   - The script may pause and wait for user input.
+   - Press any key to continue when prompted.
+   - ⚠️ Avoid pressing `CTRL+C`, as it may interrupt the installation.
+     
+
+### Follow the steps below:
+
+1. **Download this repository**
+   - Clone via Git:
+     ```bash
+     git clone <REPOSITORY_URL>
+     ```
+   - Or download the ZIP from GitHub and extract it.
+
+2. **Navigate to the folder**
+   ```bash
+   cd LBPM_Installer
+   ```
+
+3. **Make the script executable**
+   ```bash
+   chmod +x install.sh
+   ```
+
+4. **Run the installer**
+   ```bash
+   ./install.sh
+   ```
 
 ### Notes:
+
 If an error occurs during installation:
 - Open install.sh and review the steps manually.
 - Compare them with the official LBPM documentation.
