@@ -69,7 +69,6 @@ CC=$MPI_DIR/bin/mpicc  CXX=$MPI_DIR/bin/mpicxx CXXFLAGS="-fPIC -O3 -std=c++14" \
 
 cd ..
 
-# prosseguir
 
 
 mkdir LBPM_source LBPM_dir
@@ -84,8 +83,6 @@ echo $LBPM_DIR
 echo -e "\n\n\n\n\n Cloning github repository ... before this, make sure you have your git properly set in your machine.\n\n Then press any key to continue ..."
 read -p ""
 
-# prosseguir
-
 
 cd $LBPM_SOURCE
 
@@ -96,11 +93,16 @@ REPO_TO_CLONE=${USER_REPO:-$DEFAULT_REPO}
 echo -e "\nCloning from: $REPO_TO_CLONE ...\n"
 
 
-read -p "Enter the branch name [Press Enter for Default: $DEFAULT_BRANCH]: " USER_BRANCH
-BRANCH_TO_CLONE=${USER_BRANCH:-$DEFAULT_BRANCH}
+read -p "Enter the branch name [Leave empty to clone full repository]: " USER_BRANCH
+USER_BRANCH=$(echo "$USER_BRANCH" | xargs)
 
-echo -e "Cloning branch: $BRANCH_TO_CLONE de $REPO_TO_CLONE ...\n"
-git clone -b "$BRANCH_TO_CLONE" --single-branch "$REPO_TO_CLONE" .
+if [ -z "$USER_BRANCH" ]; then
+    echo -e "\nCloning full repository (all branches) from $REPO_TO_CLONE ...\n"
+    git clone "$REPO_TO_CLONE" .
+else
+    echo -e "\nCloning branch: $USER_BRANCH from $REPO_TO_CLONE ...\n"
+    git clone -b "$USER_BRANCH" --single-branch "$REPO_TO_CLONE" .
+fi
 
 rmdir LBPM
 cd ..
@@ -113,10 +115,7 @@ read -p ""
 echo -e "\n\n\n\n\n Please, write {#include <cstdint>} on LBPM_source/tests/DataAggregator.cpp headers.\n\n Then press any key to continue: ..."
 read -p ""
 
-
 cd $LBPM_DIR
-
-
 
 cmake                                           \
     -D CMAKE_BUILD_TYPE:STRING=Release          \
