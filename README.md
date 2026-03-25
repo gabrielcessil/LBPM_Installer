@@ -15,8 +15,6 @@ Before running the installer, ensure the following dependencies are available on
 - `g++`
 - `bash`
 
-## Installation:
-
 ## Installation
 
 **Follow on-screen instructions**
