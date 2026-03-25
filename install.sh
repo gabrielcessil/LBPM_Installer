@@ -146,5 +146,5 @@ make install
 
 ctest
 
-echo -e "\n\nFinished. Some tests may fail due the development stage, but it should still work for general porpouse applications. \n\n"
+echo -e "\n\nFinished. Some tests may fail due to the development stage, but it should still work for general porpouse applications. \n\n"
 
