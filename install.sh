@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DEFAULT_REPO="https://github.com/poro-labcc/lbpm/"
-DEFAULT_BRANCH="master"
 
 sudo apt install gfortran
 
