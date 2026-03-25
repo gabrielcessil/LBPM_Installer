@@ -16,12 +16,14 @@ export LBPM_HDF5_DIR=$(pwd)/hdf5
 export LBPM_SILO_DIR=$(pwd)/silo
 
 
+
+echo -e "\n\n Please, make sure the following paths are correctly set in the installation folder. Then, press any key to continue..."
 echo $MPI_DIR
 echo $LBPM_ZLIB_DIR
 echo $LBPM_HDF5_DIR
 echo $LBPM_SILO_DIR
-echo -e "\n\nSome previous actions may have interfered with the previous steps. Please make sure the paths above are correctly set in the installation folder. Then, press any key to continue..."
 read -p ""
+
 tar -xvzf openmpi-3.1.6.tar.gz
 cd openmpi-3.1.6
 ./configure --prefix=$MPI_DIR
@@ -80,7 +82,7 @@ echo $LBPM_DIR
 
 
 # DOWNLOAD LBPM, THEN EXTRACT AT LBPM_SOURCE FOLDER.
-echo -e "\n\n\n\n\n Cloning github repository ... before this, make sure you have your git properly set in your machine.\n\n Then press any key to continue ..."
+echo -e "\n\n\n\n\n Cloning github repository. Make sure you have git properly set in your machine. Consider using 'apt-get install git' ... \n\n Press any key to continue ..."
 read -p ""
 
 
