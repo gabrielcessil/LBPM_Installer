@@ -20,7 +20,7 @@ Before running the installer, ensure the following dependencies are available on
 **Follow on-screen instructions**
    - The script may pause and wait for user input.
    - Press any key to continue when prompted.
-   - ⚠️ Avoid pressing `CTRL+C`, as it may interrupt the installation.
+   - ⚠️ Avoid pressing `CTRL+C` in terminal, as it may interrupt the installation.
      
 
 ### Follow the steps below:
