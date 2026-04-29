@@ -1,94 +1,128 @@
 #!/bin/bash
 
-DEFAULT_REPO="https://github.com/poro-labcc/lbpm/"
-
 sudo apt install gfortran
 
-mkdir mpi zlib hdf5 silo
+DEFAULT_REPO="https://github.com/poro-labcc/lbpm/"
 
+
+
+# =========================================================
+# Interactive prompt for dependency installation
+# =========================================================
+printf "\033c"
+read -p "Do you want to install dependencies (OpenMPI, CMake, Zlib, HDF5, Silo)? (y/n): " INSTALL_CHOICE
+
+if [[ "$INSTALL_CHOICE" == "y" || "$INSTALL_CHOICE" == "Y" ]]; then
+    SKIP_DEPS=false
+else
+    SKIP_DEPS=true
+fi
+
+# =========================================================
+# Export paths needed for both installation and LBPM compilation
+# =========================================================
 export MPI_DIR=$(pwd)/mpi
 export LBPM_ZLIB_DIR=$(pwd)/zlib
 export LBPM_HDF5_DIR=$(pwd)/hdf5
 export LBPM_SILO_DIR=$(pwd)/silo
 
+# =========================================================
+# Dependency Installation Block
+# =========================================================
+if [ "$SKIP_DEPS" = false ]; then
+    sudo apt install gfortran -y
 
-printf "\033c"
-echo -e "\n\n Please, make sure the following paths are correctly set in the installation folder. Then, press any key to continue..."
-echo $MPI_DIR
-echo $LBPM_ZLIB_DIR
-echo $LBPM_HDF5_DIR
-echo $LBPM_SILO_DIR
-read -p ""
+    mkdir -p mpi zlib hdf5 silo
 
-printf "\033c"
-echo -e "\n Installing OpenMPI ..."
-tar -xvzf openmpi-3.1.6.tar.gz
-cd openmpi-3.1.6
-./configure --prefix=$MPI_DIR
-make
-sudo make install
+    printf "\033c"
+    echo -e "\n\n Please, make sure the following paths are correctly set in the installation folder. Then, press any key to continue..."
+    echo $MPI_DIR
+    echo $LBPM_ZLIB_DIR
+    echo $LBPM_HDF5_DIR
+    echo $LBPM_SILO_DIR
+    read -p ""
 
-printf "\033c"
-echo -e "\n\n OpenMPI successfully installed ..."
-echo -e "\n Installing CMake ..."
-cd ..
-tar -xvzf cmake-3.26.0.tar.gz
-cd cmake-3.26.0
-sudo apt-get install libgl1-mesa-dev
-./bootstrap
-./bootstrap --prefix=/usr/local
-make
+    printf "\033c"
+    echo -e "\n Installing OpenMPI ..."
+    tar -xvzf openmpi-3.1.6.tar.gz
+    cd openmpi-3.1.6
+    ./configure --prefix=$MPI_DIR
+    make
+    sudo make install
 
-printf "\033c"
-echo -e "\n\n CMake successfully installed ..."
-echo -e "\n Installing gcd ..."
-sudo apt install gcd $LBPM_DIR
-sudo make install
+    printf "\033c"
+    echo -e "\n\n OpenMPI successfully installed ..."
+    echo -e "\n Installing CMake ..."
+    cd ..
+    tar -xvzf cmake-3.26.0.tar.gz
+    cd cmake-3.26.0
+    sudo apt-get install libgl1-mesa-dev -y
+    ./bootstrap
+    ./bootstrap --prefix=/usr/local
+    make
 
-cd ..
-tar -xzvf zlib-1.2.11.tar.gz
-tar -xzvf hdf5-1.8.12.tar.gz
-tar -xzvf silo-4.10.2.tar.gz
+    printf "\033c"
+    echo -e "\n\n CMake successfully installed ..."
+    echo -e "\n Installing gcd ..."
+    sudo apt install gcd $LBPM_DIR -y
+    sudo make install
 
-printf "\033c"
-echo -e "\n\n GCD successfully installed ..."
-echo -e "\n Installing Zlib ..."
-cd zlib-1.2.11
-./configure --prefix=$LBPM_ZLIB_DIR && make && make install
+    cd ..
+    tar -xzvf zlib-1.2.11.tar.gz
+    tar -xzvf hdf5-1.8.12.tar.gz
+    tar -xzvf silo-4.10.2.tar.gz
 
-printf "\033c"
-echo -e "\n\n Zlib successfully installed ..."
-echo -e "\n Installing hdf5 ..."
-cd ../hdf5-1.8.12
-CC=$MPI_DIR/bin/mpicc  CXX=$MPI_DIR/bin/mpicxx CXXFLAGS="-fPIC -O3 -std=c++14" \
-./configure --prefix=$LBPM_HDF5_DIR --enable-parallel --enable-shared --with-zlib=$LBPM_ZLIB_DIR
- make && make install
+    printf "\033c"
+    echo -e "\n\n GCD successfully installed ..."
+    echo -e "\n Installing Zlib ..."
+    cd zlib-1.2.11
+    ./configure --prefix=$LBPM_ZLIB_DIR && make && make install
 
-printf "\033c"
-echo -e "\n Installing ZLib ..."
-sudo apt-get install zlib1g-dev
+    printf "\033c"
+    echo -e "\n\n Zlib successfully installed ..."
+    echo -e "\n Installing hdf5 ..."
+    cd ../hdf5-1.8.12
+    CC=$MPI_DIR/bin/mpicc  CXX=$MPI_DIR/bin/mpicxx CXXFLAGS="-fPIC -O3 -std=c++14" \
+    ./configure --prefix=$LBPM_HDF5_DIR --enable-parallel --enable-shared --with-zlib=$LBPM_ZLIB_DIR
+    make && make install
 
+    printf "\033c"
+    echo -e "\n Installing ZLib ..."
+    sudo apt-get install zlib1g-dev -y
 
-printf "\033c"
-echo -e "\n\n ZLib successfully installed ..."
-echo -e "\n Installing Silo ..."
-cd ../silo-4.10.2
-CC=$MPI_DIR/bin/mpicc  CXX=$MPI_DIR/bin/mpicxx CXXFLAGS="-fPIC -O3 -std=c++14" \
-./configure --prefix=$LBPM_SILO_DIR -with-hdf5=$LBPM_HDF5_DIR/include,$LBPM_HDF5_DIR/lib --enable-static
- make && make install
+    printf "\033c"
+    echo -e "\n\n ZLib successfully installed ..."
+    echo -e "\n Installing Silo ..."
+    cd ../silo-4.10.2
+    CC=$MPI_DIR/bin/mpicc  CXX=$MPI_DIR/bin/mpicxx CXXFLAGS="-fPIC -O3 -std=c++14" \
+    ./configure --prefix=$LBPM_SILO_DIR -with-hdf5=$LBPM_HDF5_DIR/include,$LBPM_HDF5_DIR/lib --enable-static
+    make && make install
 
-cd ..
-mkdir LBPM_source LBPM_dir
+    cd ..
+else
+    printf "\033c"
+    echo -e "\n[INFO] Skipping dependency installation..."
+    echo -e "Using existing dependency paths:"
+    echo "MPI:  $MPI_DIR"
+    echo "ZLIB: $LBPM_ZLIB_DIR"
+    echo "HDF5: $LBPM_HDF5_DIR"
+    echo "SILO: $LBPM_SILO_DIR"
+    echo -e "\nPress any key to continue to LBPM compilation..."
+    read -p ""
+fi
+
+# =========================================================
+# LBPM Cloning and Compilation Block (Runs every time)
+# =========================================================
+mkdir -p LBPM_source LBPM_dir
 export LBPM_SOURCE=$(pwd)/LBPM_source
 export LBPM_DIR=$(pwd)/LBPM_dir
 echo $LBPM_SOURCE
 echo $LBPM_DIR
 
-
 printf "\033c"
 echo -e "\n\n\n\n\n Cloning github repository. Make sure you have git properly set in your machine. Consider using 'apt-get install git' ... \n\n Press any key to continue ..."
 read -p ""
-
 
 cd $LBPM_SOURCE
 
@@ -97,7 +131,6 @@ read -p "[Press Enter for Default: $DEFAULT_REPO]: " USER_REPO
 USER_REPO=$(echo "$USER_REPO" | xargs | tr -d '"')
 REPO_TO_CLONE=${USER_REPO:-$DEFAULT_REPO}
 echo -e "\nCloning from: $REPO_TO_CLONE ...\n"
-
 
 read -p "Enter the branch name [Leave empty to clone full repository]: " USER_BRANCH
 USER_BRANCH=$(echo "$USER_BRANCH" | xargs)
@@ -123,21 +156,21 @@ read -p ""
 
 cd $LBPM_DIR
 
-cmake                                           \
-    -D CMAKE_BUILD_TYPE:STRING=Release          \
-    -D CMAKE_C_COMPILER:PATH=$MPI_DIR/bin/mpicc              \
-    -D CMAKE_CXX_COMPILER:PATH=$MPI_DIR/bin/mpicxx           \
-    -D CMAKE_C_FLAGS="-fPIC"                    \
-    -D CMAKE_CXX_FLAGS="-fPIC"                  \
-    -D CMAKE_CXX_STD=14                         \
-    -D USE_TIMER=0                              \
-        -D TIMER_DIRECTORY=$LBPM_TIMER_DIR     \
-    -D USE_NETCDF=0                             \
-        -D NETCDF_DIRECTORY=$LBPM_NETCDF_DIR   \
-    -D USE_SILO=1                               \
-       -D HDF5_DIRECTORY=$LBPM_HDF5_DIR         \
-       -D SILO_DIRECTORY=$LBPM_SILO_DIR         \
-    -D USE_CUDA=0                               \
+cmake                                               \
+    -D CMAKE_BUILD_TYPE:STRING=Release              \
+    -D CMAKE_C_COMPILER:PATH=$MPI_DIR/bin/mpicc     \
+    -D CMAKE_CXX_COMPILER:PATH=$MPI_DIR/bin/mpicxx  \
+    -D CMAKE_C_FLAGS="-fPIC"                        \
+    -D CMAKE_CXX_FLAGS="-fPIC"                      \
+    -D CMAKE_CXX_STD=14                             \
+    -D USE_TIMER=0                                  \
+        -D TIMER_DIRECTORY=$LBPM_TIMER_DIR          \
+    -D USE_NETCDF=0                                 \
+        -D NETCDF_DIRECTORY=$LBPM_NETCDF_DIR        \
+    -D USE_SILO=1                                   \
+       -D HDF5_DIRECTORY=$LBPM_HDF5_DIR             \
+       -D SILO_DIRECTORY=$LBPM_SILO_DIR             \
+    -D USE_CUDA=0                                   \
     $LBPM_SOURCE
 
 make -j4
@@ -147,4 +180,3 @@ make install
 ctest
 
 echo -e "\n\nFinished. Some tests may fail due to the development stage, but it should still work for general porpouse applications. \n\n"
-
