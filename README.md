@@ -32,7 +32,7 @@ Before running the installer, ensure the following dependencies are available on
      ```
    - Or download the ZIP from GitHub and extract it.
 
-2. **Navigate to the folder**
+2. **Rename as you want and navigate to the folder**
    ```bash
    cd LBPM_Installer-main
    ```
