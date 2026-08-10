@@ -28,7 +28,7 @@ Before running the installer, ensure the following dependencies are available on
 1. **Download this repository**
    - Clone via Git:
      ```bash
-     git clone <REPOSITORY_URL>
+     git clone https://github.com/gabrielcessil/LBPM_Installer.git
      ```
    - Or download the ZIP from GitHub and extract it.
 
